@@ -137,7 +137,7 @@ SMTP_EMAIL=testehznkairo@gmail.com
 SMTP_PASSWORD=xxxx_xxxx_xxxx_xxxx    # App Password do Gmail
 EVALUATOR_EMAIL=testehznkairo@gmail.com
 EVALUATOR_PASSWORD=testehzn123
-JWT_SECRET=sua_chave_secreta_super_segura
+JWT_SECRET=sua_chave_secreta
 FRONTEND_URL=http://localhost:5173
 ```
 
