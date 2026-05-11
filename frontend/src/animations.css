@@ -1,0 +1,68 @@
+/* ============================================================
+   Single Lightning Animation for Home Page
+   ============================================================ */
+
+.home-layout {
+  display: flex;
+  gap: 4rem;
+  align-items: stretch;
+}
+
+.home-form-container {
+  flex: 1;
+  max-width: 580px;
+}
+
+.home-animation-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.single-lightning {
+  width: 250px;
+  height: auto;
+  color: #ffea00;
+  filter: drop-shadow(0 0 20px rgba(255, 234, 0, 0.8));
+  animation: strike-fade 4s ease-out infinite;
+  transform-origin: top;
+}
+
+.single-lightning svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+@keyframes strike-fade {
+  0% {
+    opacity: 0;
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    filter: drop-shadow(0 0 5px rgba(255, 234, 0, 0.4));
+  }
+  10% {
+    opacity: 1;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    filter: drop-shadow(0 0 30px rgba(255, 234, 0, 1));
+  }
+  30% {
+    opacity: 0.9;
+    filter: drop-shadow(0 0 15px rgba(255, 234, 0, 0.7));
+  }
+  100% {
+    opacity: 0;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    filter: drop-shadow(0 0 2px rgba(255, 234, 0, 0.1));
+  }
+}
+
+@media (max-width: 900px) {
+  .home-layout {
+    flex-direction: column;
+  }
+  .home-animation-container {
+    display: none;
+  }
+}
