@@ -160,7 +160,7 @@ Substituímos a abordagem de enviar códigos de acesso por e-mail por um sistema
 
 ### Design Limpo e Institucional
 O visual adotou cantos retos, menos sombras excessivas e mais respiro.
-**Por quê?** Passar seriedade e autoridade visual (*"Smart Money"*), alinhando a plataforma com a identidade premium de um fundo de Venture Capital e interfaces focadas em inteligência corporativa.
+**Por quê?** Passar seriedade e autoridade visual, alinhando a plataforma com a identidade premium de um fundo de Venture Capital e interfaces focadas em inteligência corporativa.
 
 ---
 
@@ -172,5 +172,5 @@ Para evoluir a plataforma, os seguintes pontos foram mapeados para o roadmap:
 2. **Feedback Inteligente para o Empreendedor:** Permitir que o Avaliador escreva um feedback customizado no momento da decisão (aprovar/reprovar), ou utilizar a IA para gerar uma devolutiva construtiva e amigável baseada na avaliação crítica, **sem expor o prompt interno** ou o *Score* real da matriz de avaliação.
 
 ---
-*Atividade de estágio desenvolvida como um projeto prático para a HZN / BPA Ventures.*  
+*Atividade de estágio desenvolvida como um projeto prático para a HZN*  
 📫 **Contato:** [kairohenrique293@gmail.com](mailto:kairohenrique293@gmail.com)
