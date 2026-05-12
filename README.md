@@ -132,6 +132,38 @@ Para testar a plataforma imediatamente após rodar:
 
 ---
 
+## 🔄 Fluxo do Sistema
+
+### 1. Submissão (Empreendedor)
+O fluxo começa com o empreendedor preenchendo o título do projeto, dados de contato e cadastrando uma senha de acesso. Ele anexa seu deck/plano de negócios (PDF ou DOCX). Os dados são salvos no banco SQLite, com senhas devidamente hasheadas para segurança.
+
+### 2. Triagem Adversarial via IA (Processo Automático)
+O backend extrai o texto do documento e o envia ao Google Gemini. A IA atua como um analista crítico, avaliando o "Fit BPA", Risco de Execução e Custo de Oportunidade. O resultado é um *Score* (0 a 30) e um Veredito sugerido (PASSAR / APROFUNDAR / AVANÇAR), com as *Red Flags* encontradas.
+
+### 3. Acompanhamento (Empreendedor)
+Fazendo login na **Área do Empreendedor**, o usuário visualiza o status do projeto em tempo real ("Em Análise", "Aprovada", "Reprovada"). Ele não tem acesso à pontuação interna ou à análise crua da IA, protegendo os critérios proprietários da BPA.
+
+### 4. Validação e Decisão (Avaliador)
+O avaliador da BPA acessa o Dashboard restrito. Lá, ele consegue visualizar a análise estruturada da IA, conferir os pontos de atenção e baixar o documento original. Com as informações mastigadas, toma a decisão final de Aprovar ou Reprovar.
+
+---
+
+## 🧠 Decisões de Arquitetura
+
+### Por que FastAPI no Backend?
+- **Processamento Assíncrono:** Ideal para lidar com operações pesadas de I/O que não devem travar o servidor (como extração de PDFs e chamadas longas para a API da IA).
+- **Tipagem Forte e Validação:** Com *Pydantic*, os inputs de formulários e senhas são validados instantaneamente antes de tocarem na lógica de negócio.
+
+### Senhas vs Códigos Mágicos por E-mail
+Substituímos a abordagem de enviar códigos de acesso por e-mail por um sistema onde o empreendedor cria sua própria senha.
+**Por quê?** Reduz o atrito e elimina a dependência do tempo de resposta de servidores de e-mail (que costumam cair em spam ou atrasar, quebrando a UX). A segurança é mantida via hashes e JWT.
+
+### Design Limpo e Institucional
+O visual adotou cantos retos, menos sombras excessivas e mais respiro.
+**Por quê?** Passar seriedade e autoridade visual (*"Smart Money"*), alinhando a plataforma com a identidade premium de um fundo de Venture Capital e interfaces focadas em inteligência corporativa.
+
+---
+
 ## 🚀 Próximos Passos (Melhorias Futuras)
 
 Para evoluir a plataforma, os seguintes pontos foram mapeados para o roadmap:
