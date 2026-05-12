@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { api } from '../services/api';
 
 export default function HomePage() {
+  const [projectTitle, setProjectTitle] = useState('');
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -18,7 +19,7 @@ export default function HomePage() {
     setError('');
     setSuccess('');
 
-    if (!fullName.trim() || !email.trim() || !phone.trim() || !password.trim()) {
+    if (!projectTitle.trim() || !fullName.trim() || !email.trim() || !phone.trim() || !password.trim()) {
       setError('Por favor, preencha todos os campos.');
       return;
     }
@@ -37,6 +38,7 @@ export default function HomePage() {
 
     try {
       const formData = new FormData();
+      formData.append('project_title', projectTitle.trim());
       formData.append('full_name', fullName.trim());
       formData.append('email', email.trim());
       formData.append('phone', phone.trim());
@@ -45,6 +47,7 @@ export default function HomePage() {
 
       const result = await api.createSubmission(formData);
       setSuccess(result.message);
+      setProjectTitle('');
       setFullName('');
       setEmail('');
       setPhone('');
@@ -103,12 +106,7 @@ export default function HomePage() {
             <h2 className="card-title">Nova submissão</h2>
           </div>
 
-          {success && (
-            <div className="message message-success">
-              <span>✓</span>
-              <span>{success}</span>
-            </div>
-          )}
+
 
           {error && (
             <div className="message message-error">
@@ -118,6 +116,20 @@ export default function HomePage() {
           )}
 
           <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label className="form-label" htmlFor="projectTitle">Título do projeto</label>
+              <input
+                id="projectTitle"
+                type="text"
+                className="form-input"
+                placeholder="Ex: Plataforma EcoTrack"
+                value={projectTitle}
+                onChange={(e) => setProjectTitle(e.target.value)}
+                disabled={loading}
+                required
+              />
+            </div>
+
             <div className="form-group">
               <label className="form-label" htmlFor="fullName">Nome completo</label>
               <input
@@ -219,7 +231,7 @@ export default function HomePage() {
             <button
               type="submit"
               className="btn btn-primary btn-full btn-lg"
-              disabled={loading || !fullName || !email || !phone || !password || !file}
+              disabled={loading || !projectTitle || !fullName || !email || !phone || !password || !file}
             >
               {loading ? (
                 <>
@@ -233,6 +245,25 @@ export default function HomePage() {
           </form>
         </div>
       </div>
+
+      {success && (
+        <div className="modal-overlay" onClick={() => setSuccess('')}>
+          <div className="modal" onClick={e => e.stopPropagation()} style={{ textAlign: 'center', padding: '3rem 2rem' }}>
+            <div style={{ fontSize: '3rem', color: 'var(--success)', marginBottom: '1rem' }}>✓</div>
+            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Submissão enviada!</h3>
+            <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>
+              {success}
+            </p>
+            <button
+              className="btn btn-primary"
+              onClick={() => setSuccess('')}
+              style={{ padding: '0.75rem 2.5rem' }}
+            >
+              Entendido
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

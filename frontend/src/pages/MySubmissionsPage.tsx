@@ -119,18 +119,13 @@ export default function MySubmissionsPage() {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem' }}>
                 <div>
                   <h3 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '0.25rem' }}>
-                    {sub.original_filename}
+                    {sub.project_title}
                   </h3>
                   <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
                     Enviado em {formatDate(sub.created_at)}
                   </p>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  {sub.score && (
-                    <span style={{ fontSize: '1.1rem', fontWeight: 900, color: 'var(--accent)' }}>
-                      {sub.score}/30
-                    </span>
-                  )}
                   <span className={`badge ${STATUS_BADGE[sub.status] || 'badge-pending'}`}>
                     {STATUS_LABELS[sub.status] || sub.status}
                   </span>
@@ -153,31 +148,7 @@ export default function MySubmissionsPage() {
                       <div className="label">Data de envio</div>
                       <div className="value">{formatDate(sub.created_at)}</div>
                     </div>
-                    {sub.score !== null && sub.score !== undefined && (
-                      <div className="detail-item">
-                        <div className="label">Score IA</div>
-                        <div className="value">{sub.score}/30</div>
-                      </div>
-                    )}
-                    {sub.verdict && (
-                      <div className="detail-item">
-                        <div className="label">Veredito IA</div>
-                        <div className="value">{sub.verdict}</div>
-                      </div>
-                    )}
                   </div>
-
-                  {/* Show AI feedback / error details */}
-                  {sub.ai_analysis && (
-                    <div style={{ marginTop: '1rem' }}>
-                      <div style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase' as const, letterSpacing: '0.12em', marginBottom: '0.5rem' }}>
-                        Feedback
-                      </div>
-                      <div className="analysis-container" style={{ maxHeight: '300px' }}>
-                        {sub.ai_analysis}
-                      </div>
-                    </div>
-                  )}
                 </div>
               )}
             </div>

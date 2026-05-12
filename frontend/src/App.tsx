@@ -40,7 +40,7 @@ function Header() {
           </>
         ) : (
           <>
-            <Link to="/proponente">Acompanhar Submissão</Link>
+            <Link to="/proponente">Acompanhar Minha Submissão</Link>
             <Link to="/login">Avaliador</Link>
           </>
         )}

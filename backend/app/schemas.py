@@ -4,6 +4,7 @@ from datetime import datetime
 
 
 class SubmissionCreate(BaseModel):
+    project_title: str
     full_name: str
     email: str
     phone: str
@@ -11,6 +12,7 @@ class SubmissionCreate(BaseModel):
 
 class SubmissionResponse(BaseModel):
     id: str
+    project_title: str
     full_name: str
     email: str
     phone: str
@@ -28,6 +30,7 @@ class SubmissionResponse(BaseModel):
 
 class SubmissionListResponse(BaseModel):
     id: str
+    project_title: str
     full_name: str
     email: str
     phone: str

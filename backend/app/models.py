@@ -26,6 +26,7 @@ class Submission(Base):
     __tablename__ = "submissions"
 
     id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    project_title = Column(String(255), nullable=False, default="Projeto sem título")
     full_name = Column(String(255), nullable=False)
     email = Column(String(255), nullable=False)
     phone = Column(String(50), nullable=False)

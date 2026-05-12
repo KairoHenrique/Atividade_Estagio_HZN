@@ -31,7 +31,7 @@ export default function ProponentLoginPage() {
       <div className="card login-card">
         <div className="card-header">
           <div className="login-icon">✉</div>
-          <h2 className="card-title">Área do proponente</h2>
+          <h2 className="card-title">Área do Empreendedor</h2>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: '-0.5rem' }}>
             Entre com o e-mail e a senha que você cadastrou ao submeter seu projeto
           </p>

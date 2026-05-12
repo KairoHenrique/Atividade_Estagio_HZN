@@ -50,6 +50,7 @@ async function request<T>(endpoint: string, options: RequestOptions = {}): Promi
 
 export interface Submission {
   id: string;
+  project_title: string;
   full_name: string;
   email: string;
   phone: string;

@@ -88,36 +88,37 @@ git clone https://github.com/KairoHenrique/Atividade_Estagio_HZN.git
 cd Atividade_Estagio_HZN
 ```
 
-### 2. Backend
+### 2. Configuração do Backend
 
+#### No Linux / macOS
 ```bash
 cd backend
-
-# Criar ambiente virtual
 python3 -m venv venv
-source venv/bin/activate  # Linux/Mac
-# venv\Scripts\activate   # Windows
-
-# Instalar dependências
+source venv/bin/activate
 pip install -r requirements.txt
-
-# Configurar variáveis de ambiente
 cp .env.example .env
-# Edite o .env com sua chave do Gemini.
-
-# Iniciar servidor (porta 8000)
+# Edite o arquivo .env e adicione a sua chave do Gemini e demais credenciais
 uvicorn app.main:app --reload
 ```
 
-### 3. Frontend
+#### No Windows
+```powershell
+cd backend
+python -m venv venv
+.\venv\Scripts\activate
+pip install -r requirements.txt
+copy .env.example .env
+# Edite o arquivo .env e adicione a sua chave do Gemini e demais credenciais
+uvicorn app.main:app --reload
+```
+
+### 3. Configuração do Frontend (Windows e Linux)
+
+Abra um novo terminal (mantenha o backend rodando):
 
 ```bash
 cd frontend
-
-# Instalar dependências
 npm install
-
-# Iniciar servidor de desenvolvimento (porta 5173)
 npm run dev
 ```
 
@@ -159,7 +160,7 @@ FRONTEND_URL=http://localhost:5173
 ## Fluxo do Sistema
 
 ### 1. Submissão (Proponente)
-O proponente preenche nome, e-mail, telefone, cadastra uma senha de acesso e anexa seu deck/plano (PDF). O arquivo e os dados são salvos no SQLite local (senhas hasheadas).
+O proponente preenche o título do projeto, nome, e-mail, telefone, cadastra uma senha de acesso e anexa seu deck/plano (PDF). O arquivo e os dados são salvos no SQLite local (senhas hasheadas).
 
 ### 2. Triagem Adversarial via IA (Automático)
 O backend extrai o texto do documento e envia ao Gemini. A IA avalia o "Fit BPA", Risco de Execução e Custo de Oportunidade, retornando um Score (0-30) e um Veredito (PASSAR / APROFUNDAR / AVANÇAR).
@@ -168,7 +169,7 @@ O backend extrai o texto do documento e envia ao Gemini. A IA avalia o "Fit BPA"
 O proponente faz login na área restrita com seu e-mail e senha. Lá, ele consegue visualizar o status em tempo real da sua submissão ("Em Análise", "Aprovada", "Reprovada").
 
 ### 4. Validação (Avaliador)
-O avaliador (Davi) acessa o Dashboard. Ele pode ver a análise estruturada da IA, as *Red Flags*, e clicar para baixar o documento original. O backend formata o download de forma semântica: `Nome_Proponente_YYYY-MM-DD_Arquivo.pdf`. O avaliador toma a decisão final.
+O avaliador (Davi) acessa o Dashboard. Ele pode ver a análise estruturada da IA, as *Red Flags*, e clicar para baixar o documento original. O frontend formata o download de forma semântica focada no projeto: `titulo_do_projeto_dd-mm-aaaa.pdf`. O avaliador toma a decisão final.
 
 ---
 

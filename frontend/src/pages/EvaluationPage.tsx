@@ -136,7 +136,7 @@ export default function EvaluationPage() {
               Avaliação de oportunidade
             </span>
             <h1 style={{ fontSize: '1.5rem', fontWeight: 900, marginTop: '0.5rem', marginBottom: '0.75rem', letterSpacing: '-0.02em' }}>
-              {submission.full_name}
+              {submission.project_title}
             </h1>
             <span className={`badge ${STATUS_BADGE[submission.status] || 'badge-pending'}`}>
               {STATUS_LABELS[submission.status] || submission.status}
@@ -156,7 +156,7 @@ export default function EvaluationPage() {
 
       {/* Details */}
       <div className="card" style={{ marginBottom: '1rem' }}>
-        <h3 className="card-title" style={{ marginBottom: '1.25rem' }}>Dados do proponente</h3>
+        <h3 className="card-title" style={{ marginBottom: '1.25rem' }}>Dados do Empreendedor</h3>
         <div className="detail-grid">
           <div className="detail-item">
             <div className="label">Nome completo</div>
@@ -178,38 +178,42 @@ export default function EvaluationPage() {
             <div className="label">Data de submissão</div>
             <div className="value">{formatDate(submission.created_at)}</div>
           </div>
-          {submission.verdict && (
-            <div className="detail-item">
-              <div className="label">Veredito IA</div>
-              <div className="value">{submission.verdict}</div>
-            </div>
-          )}
-        </div>
 
-        {/* Download PDF Button */}
-        <div style={{ marginTop: '1.25rem', paddingTop: '1.25rem', borderTop: '1px solid var(--border)' }}>
-          <button
-            className="btn btn-outline"
-            onClick={async () => {
-              try {
-                const token = localStorage.getItem('bpa_token');
-                const res = await fetch(`/api/submissions/${id}/file`, {
-                  headers: { Authorization: `Bearer ${token}` },
-                });
-                if (!res.ok) throw new Error('Erro ao baixar arquivo');
-                const blob = await res.blob();
-                const url = URL.createObjectURL(blob);
-                window.open(url, '_blank');
-              } catch (err) {
-                setError('Erro ao abrir o documento.');
-              }
-            }}
-          >
-            📄 Abrir documento original
-          </button>
+          <div className="detail-item">
+            <div className="label">Ação</div>
+            <div
+              className="value"
+              style={{ cursor: 'pointer', color: 'var(--accent)', fontWeight: 700, textDecoration: 'underline' }}
+              onClick={async () => {
+                try {
+                  const token = localStorage.getItem('bpa_token');
+                  const res = await fetch(`/api/submissions/${id}/file`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                  });
+                  if (!res.ok) throw new Error('Erro ao baixar arquivo');
+                  const blob = await res.blob();
+                  const url = URL.createObjectURL(blob);
+                  const dateObj = new Date(submission.created_at);
+                  const dateStr = `${String(dateObj.getDate()).padStart(2, '0')}-${String(dateObj.getMonth() + 1).padStart(2, '0')}-${dateObj.getFullYear()}`;
+                  const safeName = submission.project_title.replace(/[^a-zA-Z0-9]/gi, '_').toLowerCase();
+                  const ext = submission.original_filename.split('.').pop() || 'pdf';
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = `${safeName}_${dateStr}.${ext}`;
+                  document.body.appendChild(a);
+                  a.click();
+                  document.body.removeChild(a);
+                  URL.revokeObjectURL(url);
+                } catch (err) {
+                  setError('Erro ao baixar o documento.');
+                }
+              }}
+            >
+              📄 Baixar documento original
+            </div>
+          </div>
         </div>
       </div>
-
       {/* AI Analysis */}
       {submission.ai_analysis && (
         <div className="card" style={{ marginBottom: '1rem' }}>
@@ -219,7 +223,6 @@ export default function EvaluationPage() {
           </div>
         </div>
       )}
-
       {/* Action Buttons */}
       {canEvaluate && (
         <div className="card">

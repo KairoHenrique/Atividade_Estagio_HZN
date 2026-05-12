@@ -157,6 +157,7 @@ def _process_submission_sync(submission_id: str, file_path: str):
 @router.post("/", response_model=MessageResponse, status_code=status.HTTP_202_ACCEPTED)
 async def create_submission(
     background_tasks: BackgroundTasks,
+    project_title: str = Form(...),
     full_name: str = Form(...),
     email: str = Form(...),
     phone: str = Form(...),
@@ -182,6 +183,7 @@ async def create_submission(
     db = SessionLocal()
     try:
         submission = Submission(
+            project_title=project_title,
             full_name=full_name,
             email=email.strip().lower(),
             phone=phone,
